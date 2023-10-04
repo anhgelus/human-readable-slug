@@ -1,4 +1,4 @@
-package human_readable_slug
+package main
 
 import (
 	"math/rand"
