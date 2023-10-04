@@ -8,51 +8,55 @@ import (
 const minLetters = "abcdefghijklmnopqrstuvwxyz"
 const numbers = "0123456789"
 
-var letters string
-var badCombination [][2]string
+var letters []rune
+var badCombination [][2]rune
 
 func init() {
-	letters = minLetters + strings.ToUpper(minLetters) + numbers
-	badCombination = [][2]string{
+	letters = []rune(minLetters + strings.ToUpper(minLetters) + numbers)
+	badCombination = [][2]rune{
 		{
-			"I", "l",
+			'I', 'l',
 		},
 		{
-			"O", "0",
+			'O', '0',
 		},
 		{
-			"m", "n",
+			'm', 'n',
 		},
 	}
+}
+
+func AddBadCombination(a rune, b rune) {
+	badCombination = append(badCombination, [2]rune{a, b})
 }
 
 // GenerateSlug returns a random slug with the size specified
 func GenerateSlug(random int64, size uint) string {
 	rand.NewSource(random)
 	var slug string
-	last := ""
+	last := 'ø'
 	for i := uint(0); i < size; i++ {
 		l := randomLetter()
 		// handle bad readable cases
-		if len(last) != 0 {
+		if last != 'ø' {
 			for isBadCombination(l, last) {
 				l = randomLetter()
 			}
 		}
-		slug += l
+		slug += string(l)
 		last = l
 	}
 	return slug
 }
 
 // randomLetter returns a random letter
-func randomLetter() string {
+func randomLetter() rune {
 	n := rand.Intn(len(letters))
-	return string(letters[n])
+	return letters[n]
 }
 
 // isBadCombination returns true if a and b are a bad combination of letter
-func isBadCombination(a string, b string) bool {
+func isBadCombination(a rune, b rune) bool {
 	if a == b {
 		return true
 	}
@@ -69,10 +73,9 @@ func isBadCombination(a string, b string) bool {
 
 // IsHumanReadable checks if a slug is human readable
 func IsHumanReadable(slug string) bool {
-	last := ""
-	for _, tmp := range slug {
-		c := string(tmp)
-		if last != "" {
+	last := 'ø'
+	for _, c := range []rune(slug) {
+		if last != 'ø' {
 			if c == last {
 				return false
 			}

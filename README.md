@@ -13,7 +13,13 @@ To install this library, run this command:
 go install github.com/anhgelus/human-readable-slug@latest
 ```
 
-And now you generate some slugs with the function `GenerateSlug` in `github.com/anhgelus/human-readable-slug`:
+And now you generate some slugs with the function `GenerateSlug` in `github.com/anhgelus/human-readable-slug`. E.g.:
 ```go
 slug := GenerateSlug(time.Now().Unix(), 7) // generates a 7 chars-length slug with the current timestamp as seed 
+```
+
+If you want to add a custom bad combination, you can use the function `AddBadCombination`.E.g.:
+```go
+AddBadCombination('b', 'd') // add the combination "bd" and "db"
+AddBadCombination('q', 'p') // add the combination "qp" and "pq"
 ```
