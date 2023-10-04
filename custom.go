@@ -25,10 +25,10 @@ func (options *CustomSlug) IsHumanReadable(slug string) bool {
 
 func (options *CustomSlug) generateLetters() []rune {
 	raw := minLetters
-	if DefaultOptions.HasNumbers {
+	if options.HasNumbers {
 		raw += numbers
 	}
-	if DefaultOptions.HasCapitalLetters {
+	if options.HasCapitalLetters {
 		raw += strings.ToUpper(minLetters)
 	}
 	return []rune(raw)
