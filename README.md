@@ -10,7 +10,7 @@ Lightweight Go library generating a human-readable slug by avoiding some bad com
 
 To install this library, run this command:
 ```bash
-go install github.com/anhgelus/human-readable-slug@latest
+go get -u github.com/anhgelus/human-readable-slug
 ```
 
 And now you generate some slugs with the function `GenerateSlug` in `github.com/anhgelus/human-readable-slug`. E.g.:
